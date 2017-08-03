@@ -407,10 +407,10 @@ def parse_form_data(environ, charset='utf8', strict=False, **kw):
                               'application/x-url-encoded'):
             mem_limit = kw.get('mem_limit', 2**20)
             if content_length > mem_limit:
-                raise MultipartError("Request to big. Increase MAXMEM.")
+                raise MultipartError("Request too big. Increase MAXMEM.")
             data = stream.read(mem_limit).decode(charset)
             if stream.read(1): # These is more that does not fit mem_limit
-                raise MultipartError("Request to big. Increase MAXMEM.")
+                raise MultipartError("Request too big. Increase MAXMEM.")
             data = parse_qs(data, keep_blank_values=True)
             for key, values in data.iteritems():
                 for value in values:
